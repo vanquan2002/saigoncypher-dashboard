@@ -1,16 +1,15 @@
 import React from "react";
-import Sidebar from "./../components/Sidebar";
-import Header from "./../components/Header";
-import MainHome from "./../components/home/MainHome";
+
+import Contents from "../components/homeComponents/Contents";
+import Header from "../components/headerComponents/Header";
+import Footer from "../components/footerComponents/Footer";
 
 const HomeScreen = () => {
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="w-5/6">
-        <Header />
-        <MainHome />
-      </div>
+    <div>
+      <Header />
+      <Contents />
+      <Footer />
     </div>
   );
 };

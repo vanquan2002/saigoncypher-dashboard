@@ -2,12 +2,11 @@ import React, { useEffect } from "react";
 import TopTotal from "./TopTotal";
 import ProductsStatistics from "./ProductsStatistics";
 import SaleStatistics from "./SaleStatistics";
-import LatestOrder from "./LatestOrder";
 import { useSelector, useDispatch } from "react-redux";
-import { listProduct } from "./../../redux/actions/ProductActions";
-import { listOrder } from "./../../redux/actions/OrderActions";
+import { listProduct } from "../../redux/actions/ProductActions";
+import { listOrder } from "../../redux/actions/OrderActions";
 
-const Main = () => {
+const Contents = () => {
   const dispatch = useDispatch();
   const orderList = useSelector((state) => state.orderList);
   const { orders, loading, error } = orderList;
@@ -27,9 +26,8 @@ const Main = () => {
         <SaleStatistics />
         <ProductsStatistics />
       </div>
-      <LatestOrder orders={orders} loading={loading} error={error} />
     </div>
   );
 };
 
-export default Main;
+export default Contents;

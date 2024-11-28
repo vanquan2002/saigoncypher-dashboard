@@ -1,6 +1,6 @@
 import React from "react";
-import Loading from "./../loadingError/Loading";
-import Message from "./../loadingError/Error";
+import Loading from "../loadingError/Loading";
+import Message from "../loadingError/Error";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
@@ -18,23 +18,23 @@ const LatestOrder = ({ orders, loading, error }) => {
           <table>
             {/* <thead>
               <tr>
-                <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 bg-neutral-50 text-left text-xs leading-4 font-medium text-neutral-500 uppercase tracking-wider">
                   ID
                 </th>
-                <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 bg-neutral-50 text-left text-xs leading-4 font-medium text-neutral-500 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 bg-neutral-50 text-left text-xs leading-4 font-medium text-neutral-500 uppercase tracking-wider">
                   Date
                 </th>
-                <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 bg-neutral-50 text-left text-xs leading-4 font-medium text-neutral-500 uppercase tracking-wider">
                   Total
                 </th>
               </tr>
             </thead> */}
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white divide-y divide-neutral-200">
               {orders.slice(0, 5).map((item, i) => (
-                <tr key={i} className="hover:bg-gray-100">
+                <tr key={i} className="hover:bg-neutral-100">
                   <td className="px-6 py-4 whitespace-no-wrap">
                     {item.user.name}
                   </td>

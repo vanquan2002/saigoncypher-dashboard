@@ -6,23 +6,23 @@ const OrderDetailProducts = ({ order }) => {
       <table>
         <thead>
           <tr>
-            <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 bg-neutral-50 text-left text-xs leading-4 font-medium text-neutral-500 uppercase tracking-wider">
               Product
             </th>
-            <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 bg-neutral-50 text-left text-xs leading-4 font-medium text-neutral-500 uppercase tracking-wider">
               Unit Price
             </th>
-            <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 bg-neutral-50 text-left text-xs leading-4 font-medium text-neutral-500 uppercase tracking-wider">
               Quantity
             </th>
-            <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 bg-neutral-50 text-left text-xs leading-4 font-medium text-neutral-500 uppercase tracking-wider">
               Total
             </th>
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="bg-white divide-y divide-neutral-200">
           {order.orderItems.map((item, i) => (
-            <tr key={i} className="hover:bg-gray-100">
+            <tr key={i} className="hover:bg-neutral-100">
               <td className="px-6 py-4 whitespace-no-wrap">{item.name}</td>
               <td className="px-6 py-4 whitespace-no-wrap">${item.price}</td>
               <td className="px-6 py-4 whitespace-no-wrap">{item.qty}</td>
