@@ -1,14 +1,14 @@
 import React from "react";
-import Sidebar from "./../components/Sidebar";
-import MainProducts from "../components/products/MainProducts";
+import Contents from "../components/products/Contents";
+import Header from "../components/headerComponents/Header";
+import Footer from "../components/footerComponents/Footer";
 
 const ProductScreen = () => {
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="w-5/6">
-        <MainProducts />
-      </div>
+    <div>
+      <Header />
+      <Contents />
+      <Footer />
     </div>
   );
 };

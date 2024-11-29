@@ -8,7 +8,6 @@ import {
 import Loading from "./../loadingError/Loading";
 import Message from "./../loadingError/Error";
 import { PRODUCT_UPDATE_RESET } from "../../redux/constants/ProductConstants";
-import Toast from "./../loadingError/Toast";
 
 const EditProductMain = ({ productId }) => {
   const [name, setName] = useState("");
@@ -75,105 +74,98 @@ const EditProductMain = ({ productId }) => {
   }, [product, dispatch, productId, successUpdate]);
 
   return (
-    <>
-      <Toast />
-      <div>
-        {LoadingUpdate && <Loading />}
-        {errorUpdate && <Message variant="alert-danger">{errorUpdate}</Message>}
-        {loading ? (
-          <Loading />
-        ) : error ? (
-          <Message variant="alert-danger">{error}</Message>
-        ) : (
-          <form
-            onSubmit={submitHandle}
+    <div>
+      {LoadingUpdate && <Loading />}
+      {errorUpdate && <Message variant="alert-danger">{errorUpdate}</Message>}
+      {loading ? (
+        <Loading />
+      ) : error ? (
+        <Message variant="alert-danger">{error}</Message>
+      ) : (
+        <form
+          onSubmit={submitHandle}
+          className="border-2 border-indigo-600 m-2 p-2"
+        >
+          <div className="flex gap-36">
+            <p className="border-2 border-indigo-600 m-2 p-2">Go to product</p>
+            <p>Update product</p>
+            <button
+              type="submit"
+              className="border-2 border-indigo-600 m-2 p-2"
+            >
+              Publish now
+            </button>
+          </div>
+          <p>Product title:</p>
+          <input
             className="border-2 border-indigo-600 m-2 p-2"
-          >
-            <div className="flex gap-36">
-              <p className="border-2 border-indigo-600 m-2 p-2">
-                Go to product
-              </p>
-              <p>Update product</p>
-              <button
-                type="submit"
+            type="text"
+            placeholder="Type here"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <p>Price:</p>
+          <input
+            className="border-2 border-indigo-600 m-2 p-2"
+            type="text"
+            placeholder="Type here"
+            required
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          />
+          <p>Count In Stock:</p>
+          <input
+            className="border-2 border-indigo-600 m-2 p-2"
+            type="text"
+            placeholder="Type here"
+            required
+            value={countInStock}
+            onChange={(e) => setCountInStock(e.target.value)}
+          />
+          <p>Description:</p>
+          <input
+            className="border-2 border-indigo-600 m-2 p-2"
+            type="text"
+            placeholder="Type here"
+            required
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <p>Sizes:</p>
+          <input
+            className="border-2 border-indigo-600 m-2 p-2"
+            type="text"
+            placeholder="Type here"
+            required
+            value={sizes}
+            onChange={(e) => setSizes(e.target.value)}
+          />
+          <p>Image:</p>
+          <input
+            className="border-2 border-indigo-600 m-2 p-2"
+            type="text"
+            placeholder="Enter Image URL"
+            required
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+          />
+          <p>Images:</p>
+          {images.length > 0 &&
+            images.map((img, i) => (
+              <input
+                key={i}
                 className="border-2 border-indigo-600 m-2 p-2"
-              >
-                Publish now
-              </button>
-            </div>
-            <p>Product title:</p>
-            <input
-              className="border-2 border-indigo-600 m-2 p-2"
-              type="text"
-              placeholder="Type here"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <p>Price:</p>
-            <input
-              className="border-2 border-indigo-600 m-2 p-2"
-              type="text"
-              placeholder="Type here"
-              required
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-            />
-            <p>Count In Stock:</p>
-            <input
-              className="border-2 border-indigo-600 m-2 p-2"
-              type="text"
-              placeholder="Type here"
-              required
-              value={countInStock}
-              onChange={(e) => setCountInStock(e.target.value)}
-            />
-            <p>Description:</p>
-            <input
-              className="border-2 border-indigo-600 m-2 p-2"
-              type="text"
-              placeholder="Type here"
-              required
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-            <p>Sizes:</p>
-            <input
-              className="border-2 border-indigo-600 m-2 p-2"
-              type="text"
-              placeholder="Type here"
-              required
-              value={sizes}
-              onChange={(e) => setSizes(e.target.value)}
-            />
-            <p>Image:</p>
-            <input
-              className="border-2 border-indigo-600 m-2 p-2"
-              type="text"
-              placeholder="Enter Image URL"
-              required
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-            />
-            <p>Images:</p>
-            {images.length > 0 &&
-              images.map((img, i) => (
-                <input
-                  key={i}
-                  className="border-2 border-indigo-600 m-2 p-2"
-                  type="text"
-                  placeholder="Enter Image URL"
-                  required
-                  value={img}
-                  onChange={(e) =>
-                    setImages((prev) => [...prev, e.target.value])
-                  }
-                />
-              ))}
-          </form>
-        )}
-      </div>
-    </>
+                type="text"
+                placeholder="Enter Image URL"
+                required
+                value={img}
+                onChange={(e) => setImages((prev) => [...prev, e.target.value])}
+              />
+            ))}
+        </form>
+      )}
+    </div>
   );
 };
 

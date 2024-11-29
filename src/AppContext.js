@@ -3,15 +3,15 @@ import { createContext, useState } from "react";
 export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [isPageId, setIsPageId] = useState("home");
+  const [isDeleteModal, setIsDeleteModal] = useState(false);
 
-  const toggleIsPageId = (text) => setIsPageId(text);
+  const toggleIsDeleteModal = (bol) => setIsDeleteModal(bol);
 
   return (
     <AppContext.Provider
       value={{
-        isPageId,
-        toggleIsPageId,
+        isDeleteModal,
+        toggleIsDeleteModal,
       }}
     >
       {children}

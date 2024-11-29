@@ -1,28 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import TopTotal from "./TopTotal";
 import ProductsStatistics from "./ProductsStatistics";
 import SaleStatistics from "./SaleStatistics";
-import { useSelector, useDispatch } from "react-redux";
-import { listProduct } from "../../redux/actions/ProductActions";
-import { listOrder } from "../../redux/actions/OrderActions";
 
 const Contents = () => {
-  const dispatch = useDispatch();
-  const orderList = useSelector((state) => state.orderList);
-  const { orders, loading, error } = orderList;
-  const productList = useSelector((state) => state.productList);
-  const { products } = productList;
-
-  useEffect(() => {
-    dispatch(listProduct());
-    dispatch(listOrder());
-  }, [dispatch]);
-
   return (
-    <div>
-      <p>Dashboard</p>
-      <TopTotal orders={orders} products={products} />
-      <div className="flex">
+    <div className="mb-28">
+      <TopTotal />
+      <div className="flex flex-col md:flex-row gap-12 md:gap-3 mt-6 px-3 h-72">
         <SaleStatistics />
         <ProductsStatistics />
       </div>

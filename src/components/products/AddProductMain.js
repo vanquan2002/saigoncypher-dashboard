@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { createProduct } from "./../../redux/actions/ProductActions";
 import { PRODUCT_CREATE_RESET } from "./../../redux/constants/ProductConstants";
-import Toast from "./../loadingError/Toast";
 import Loading from "./../loadingError/Loading";
 import Message from "./../loadingError/Error";
 import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
@@ -69,87 +68,84 @@ const AddProductMain = () => {
   }, [product, dispatch]);
 
   return (
-    <>
-      <Toast />
-      <div>
-        <form className="border-2 border-indigo-600 m-2 p-2">
-          <div className="flex gap-36">
-            <p className="border-2 border-indigo-600 m-2 p-2">Go to product</p>
-            <p>Add product</p>
-            <button
-              onClick={submitHandle}
-              type="submit"
-              className="border-2 border-indigo-600 m-2 p-2"
-            >
-              Publish now
-            </button>
-          </div>
-          {loading && <Loading />}
-          {error && <Message variant="alert-danger">{error}</Message>}
-
-          <p>Product title:</p>
-          <input
+    <div>
+      <form className="border-2 border-indigo-600 m-2 p-2">
+        <div className="flex gap-36">
+          <p className="border-2 border-indigo-600 m-2 p-2">Go to product</p>
+          <p>Add product</p>
+          <button
+            onClick={submitHandle}
+            type="submit"
             className="border-2 border-indigo-600 m-2 p-2"
-            type="text"
-            placeholder="Type here"
-            required
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+          >
+            Publish now
+          </button>
+        </div>
+        {loading && <Loading />}
+        {error && <Message variant="alert-danger">{error}</Message>}
 
-          <p>Price:</p>
-          <input
-            className="border-2 border-indigo-600 m-2 p-2"
-            type="text"
-            placeholder="Type here"
-            required
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
+        <p>Product title:</p>
+        <input
+          className="border-2 border-indigo-600 m-2 p-2"
+          type="text"
+          placeholder="Type here"
+          required
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
 
-          <p>Count In Stock:</p>
-          <input
-            className="border-2 border-indigo-600 m-2 p-2"
-            type="text"
-            placeholder="Type here"
-            required
-            value={countInStock}
-            onChange={(e) => setCountInStock(e.target.value)}
-          />
-          <p>Description:</p>
-          <input
-            className="border-2 border-indigo-600 m-2 p-2"
-            type="text"
-            placeholder="Type here"
-            required
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+        <p>Price:</p>
+        <input
+          className="border-2 border-indigo-600 m-2 p-2"
+          type="text"
+          placeholder="Type here"
+          required
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
 
-          <p>Sizes:</p>
-          <input
-            className="border-2 border-indigo-600 m-2 p-2"
-            type="text"
-            placeholder="Type here"
-            required
-            onChange={(e) => setSizeHandle(e.target.value)}
-          />
+        <p>Count In Stock:</p>
+        <input
+          className="border-2 border-indigo-600 m-2 p-2"
+          type="text"
+          placeholder="Type here"
+          required
+          value={countInStock}
+          onChange={(e) => setCountInStock(e.target.value)}
+        />
+        <p>Description:</p>
+        <input
+          className="border-2 border-indigo-600 m-2 p-2"
+          type="text"
+          placeholder="Type here"
+          required
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
 
-          <p>Color:</p>
-          <input
-            className="border-2 border-indigo-600 m-2 p-2"
-            type="text"
-            placeholder="Type here"
-            required
-            value={color}
-            onChange={(e) => setColor(e.target.value)}
-          />
+        <p>Sizes:</p>
+        <input
+          className="border-2 border-indigo-600 m-2 p-2"
+          type="text"
+          placeholder="Type here"
+          required
+          onChange={(e) => setSizeHandle(e.target.value)}
+        />
 
-          <p>Images:</p>
-          <CloudinaryUploadWidget onUploadSuccess={handleUploadSuccess} />
-        </form>
-      </div>
-    </>
+        <p>Color:</p>
+        <input
+          className="border-2 border-indigo-600 m-2 p-2"
+          type="text"
+          placeholder="Type here"
+          required
+          value={color}
+          onChange={(e) => setColor(e.target.value)}
+        />
+
+        <p>Images:</p>
+        <CloudinaryUploadWidget onUploadSuccess={handleUploadSuccess} />
+      </form>
+    </div>
   );
 };
 

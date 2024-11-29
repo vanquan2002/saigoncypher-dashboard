@@ -1,26 +1,88 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { listOrder } from "./../../redux/actions/OrderActions";
+import { listProduct } from "./../../redux/actions/ProductActions";
+import { formatCurrency } from "../../utils/formatCurrency";
+import Error from "../loadingError/Error";
+import Loading from "../loadingError/Loading";
 
-const TopTotal = ({ orders, products }) => {
-  let totalSale = 0;
-  if (orders) {
-    orders.map((item) =>
-      item.isPaid ? (totalSale = totalSale + item.totalPrice) : null
-    );
-  }
+const TopTotal = () => {
+  const dispatch = useDispatch();
+  const orderList = useSelector((state) => state.orderList);
+  const { orders, loading: loadingOrders, error: errorOrders } = orderList;
+  const productList = useSelector((state) => state.productList);
+  const {
+    products,
+    loading: loadingProducts,
+    error: errorProducts,
+  } = productList;
+
+  let totalSale =
+    orders?.reduce((sum, item) => {
+      return item.orderStatus.isReceived ? sum + item.totalPrice : sum;
+    }, 0) ?? 0;
+
+  useEffect(() => {
+    dispatch(listProduct());
+    dispatch(listOrder());
+  }, [dispatch]);
+
   return (
-    <div className="flex">
-      <div className="w-40 border-2 border-indigo-600 m-2 p-2">
-        <p>Total sales</p>
-        <p>${totalSale}</p>
-      </div>
-      <div className="w-40 border-2 border-indigo-600 m-2 p-2">
-        <p>Total Orders</p>
-        <p>{orders ? orders.length : 0}</p>
-      </div>
-      <div className="w-40 border-2 border-indigo-600 m-2 p-2">
-        <p>Total Products</p>
-        <p>{products ? products.length : 0}</p>
-      </div>
+    <div className="mt-2 md:mt-5 px-3">
+      <ul className="grid grid-cols-2 md:grid-cols-3 gap-3">
+        <li className="col-span-1">
+          <div className="border border-neutral-300 px-4 py-2 flex flex-col items-center justify-center h-[4.5rem]">
+            <span className="text-sm">Tổng doanh thu</span>
+            {loadingOrders ? (
+              <div className="mt-0.5">
+                <Loading />
+              </div>
+            ) : errorOrders ? (
+              <div className="mt-0.5">
+                <Error error={errorOrders} />
+              </div>
+            ) : (
+              <p className="mt-0.5 text-xl font-bold">
+                {formatCurrency(totalSale)}
+              </p>
+            )}
+          </div>
+        </li>
+        <li className="col-span-1">
+          <div className="border border-neutral-300 px-4 py-2 flex flex-col items-center justify-center h-[4.5rem]">
+            <span className="text-sm">Tổng đơn hàng</span>
+            {loadingOrders ? (
+              <div className="mt-0.5">
+                <Loading />
+              </div>
+            ) : errorOrders ? (
+              <div className="mt-0.5">
+                <Error error={errorOrders} />
+              </div>
+            ) : (
+              <p className="mt-0.5 text-xl font-bold">{orders?.length ?? 0}</p>
+            )}
+          </div>
+        </li>
+        <li className="col-span-1">
+          <div className="border border-neutral-300 px-4 py-2 flex flex-col items-center justify-center h-[4.5rem]">
+            <span className="text-sm">Tổng sản phẩm</span>
+            {loadingProducts ? (
+              <div className="mt-0.5">
+                <Loading />
+              </div>
+            ) : errorProducts ? (
+              <div className="mt-0.5">
+                <Error error={errorProducts} />
+              </div>
+            ) : (
+              <p className="mt-0.5 text-xl font-bold">
+                {products?.length ?? 0}
+              </p>
+            )}
+          </div>
+        </li>
+      </ul>
     </div>
   );
 };

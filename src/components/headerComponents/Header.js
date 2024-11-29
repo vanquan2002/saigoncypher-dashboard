@@ -9,7 +9,7 @@ const Contents = () => {
   };
 
   return (
-    <div className="sticky top-0 left-0 w-full flex justify-between items-center bg-neutral-200 px-5 py-3">
+    <div className="sticky top-0 left-0 w-full flex justify-between items-center px-5 py-3 backdrop-blur-sm bg-white/30">
       <p className="text-center text-sm font-bold uppercase">Trang Quản trị</p>
       <button
         type="button"

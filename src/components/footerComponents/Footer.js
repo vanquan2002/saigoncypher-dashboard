@@ -35,12 +35,12 @@ const Footer = () => {
   const [activePage, setActivePage] = useState(null);
 
   return (
-    <div className="fixed left-0 bottom-0 w-full bg-neutral-200">
-      <ul className="flex">
+    <div className="fixed left-0 bottom-0 w-full backdrop-blur-sm bg-white/30">
+      <ul className="flex border-t border-neutral-300">
         {pagesUrl.map((item, i) => (
           <li
             key={i}
-            className={`w-full py-2.5 md:px-5 ${
+            className={`w-full py-2 ${
               activePage ? "bg-white" : "bg-transparent"
             }`}
           >

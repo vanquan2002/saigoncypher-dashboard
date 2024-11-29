@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { login } from "./../redux/actions/UserActions";
 import Message from "./../components/loadingError/Error";
 import Loading from "./../components/loadingError/Loading";
-import Toast from "./../components/loadingError/Toast";
 import "react-toastify/dist/ReactToastify.css";
 
 const LoginScreen = () => {
@@ -29,7 +28,6 @@ const LoginScreen = () => {
 
   return (
     <div className="flex flex-col h-screen items-center justify-center">
-      <Toast />
       {error && <Message variant="alert-danger">{error}</Message>}
       {loading && <Loading />}
       <p>Sign in</p>
