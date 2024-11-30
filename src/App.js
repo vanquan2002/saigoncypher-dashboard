@@ -20,7 +20,7 @@ function App() {
           element={<PrivateRouter comp={<ProductScreen />} />}
         />
         <Route
-          path="/addproduct"
+          path="/product/add"
           element={<PrivateRouter comp={<AddProduct />} />}
         />
         <Route
@@ -32,7 +32,7 @@ function App() {
           element={<PrivateRouter comp={<OrderScreen />} />}
         />
         <Route
-          path="/order/:id"
+          path="/order/:id/detail"
           element={<PrivateRouter comp={<OrderDetailScreen />} />}
         />
         <Route

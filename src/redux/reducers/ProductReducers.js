@@ -62,13 +62,10 @@ export const productCreateReducer = (state = {}, action) => {
   }
 };
 
-export const productEditReducer = (
-  state = { product: { reviews: [] } },
-  action
-) => {
+export const productEditReducer = (state = {}, action) => {
   switch (action.type) {
     case PRODUCT_EDIT_REQUEST:
-      return { ...state, loading: true };
+      return { loading: true };
     case PRODUCT_EDIT_SUCCESS:
       return { loading: false, product: action.payload };
     case PRODUCT_EDIT_FAIL:

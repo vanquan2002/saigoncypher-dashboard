@@ -28,7 +28,7 @@ const TopTotal = () => {
   }, [dispatch]);
 
   return (
-    <div className="mt-2 md:mt-5 px-3">
+    <div className="">
       <ul className="grid grid-cols-2 md:grid-cols-3 gap-3">
         <li className="col-span-1">
           <div className="border border-neutral-300 px-4 py-2 flex flex-col items-center justify-center h-[4.5rem]">

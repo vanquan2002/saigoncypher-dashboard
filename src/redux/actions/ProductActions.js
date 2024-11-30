@@ -31,7 +31,7 @@ export const listProduct = () => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.get("/api/products/all", config);
+    const { data } = await axios.get("/api/products/admin", config);
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
       payload: data,
@@ -127,7 +127,7 @@ export const editProduct = (id) => async (dispatch) => {
     dispatch({
       type: PRODUCT_EDIT_REQUEST,
     });
-    const { data } = await axios.get(`/api/products/${id}`);
+    const { data } = await axios.get(`/api/products/${id}/admin`);
     dispatch({
       type: PRODUCT_EDIT_SUCCESS,
       payload: data,

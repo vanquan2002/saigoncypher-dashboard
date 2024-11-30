@@ -3,9 +3,16 @@ import { AppContext } from "../../AppContext";
 import { deleteProduct } from "../../redux/actions/ProductActions";
 import { useDispatch } from "react-redux";
 
-const DeleteProductModal = ({ isOpen, product }) => {
+const DeleteProductModal = ({ isOpen, product, setTypeModal }) => {
   const dispatch = useDispatch();
-  const { isDeleteModal, toggleIsDeleteModal } = useContext(AppContext);
+  const { isDeleteModal, toggleIsDeleteModal, toggleIsSmallModal } =
+    useContext(AppContext);
+
+  const deleteProductHandle = (id) => {
+    dispatch(deleteProduct(id));
+    toggleIsSmallModal("");
+    setTypeModal("");
+  };
 
   useEffect(() => {
     document.body.style.overflow = isDeleteModal ? "hidden" : "auto";
@@ -45,7 +52,7 @@ const DeleteProductModal = ({ isOpen, product }) => {
           </button>
           <button
             type="button"
-            onClick={() => dispatch(deleteProduct(product._id))}
+            onClick={() => deleteProductHandle(product._id)}
             className="text-sm border border-neutral-300 px-6 py-1.5 hover:bg-neutral-100 text-red-500"
           >
             Xóa

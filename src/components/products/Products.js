@@ -2,22 +2,19 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { formatCurrency } from "../../utils/formatCurrency";
-import DeleteProductModal from "../modalComponents/DeleteProductModal";
+import DeleteProductModal from "../modals/DeleteProductModal";
 import { AppContext } from "../../AppContext";
 import Loading from "../loadingError/Loading";
 import Error from "../loadingError/Error";
 import { listProduct } from "./../../redux/actions/ProductActions";
-import { PRODUCT_DELETE_RESET } from "../../redux/constants/ProductConstants";
 
-const Products = () => {
+const Products = ({ setTypeModal }) => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { products, loading, error } = productList;
   const { toggleIsDeleteModal } = useContext(AppContext);
-  const productDelete = useSelector((state) => state.productDelete);
-  const { success: successDelete, error: errorDelete } = productDelete;
-  const [numberOpenDeleteModal, setNumberOpenDeleteModal] = useState(null);
 
+  const [numberOpenDeleteModal, setNumberOpenDeleteModal] = useState(null);
   const openDeleteModalHandle = (id) => {
     toggleIsDeleteModal(true);
     setNumberOpenDeleteModal(id);
@@ -27,14 +24,6 @@ const Products = () => {
     dispatch(listProduct());
   }, []);
 
-  useEffect(() => {
-    if (successDelete) {
-      dispatch(listProduct());
-      dispatch({ type: PRODUCT_DELETE_RESET });
-      toggleIsDeleteModal(false);
-    }
-  }, [successDelete]);
-
   return (
     <div>
       {loading ? (
@@ -42,7 +31,7 @@ const Products = () => {
       ) : error ? (
         <Error error={error} />
       ) : (
-        <ul className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
           {products.map((product, i) => (
             <li key={i} className="col-span-1">
               <img src={product.thumbImage} alt={product.name} />
@@ -71,6 +60,7 @@ const Products = () => {
               <DeleteProductModal
                 isOpen={i === numberOpenDeleteModal}
                 product={product}
+                setTypeModal={setTypeModal}
               />
             </li>
           ))}
