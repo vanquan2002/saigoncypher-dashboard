@@ -15,7 +15,7 @@ const SmallModal = ({ result, type }) => {
     >
       <div
         className={`flex items-center gap-3 px-3 py-2 ${
-          type === "delete_error" ? "bg-red-500" : "bg-black"
+          type === "error" ? "bg-red-500" : "bg-black"
         }`}
       >
         <p className="text-white leading-3 text-sm lowercase">{isSmallModal}</p>

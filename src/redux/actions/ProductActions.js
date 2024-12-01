@@ -64,7 +64,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    await axios.delete(`/api/products/${id}`, config);
+    await axios.delete(`/api/products/${id}/admin`, config);
     dispatch({
       type: PRODUCT_DELETE_SUCCESS,
     });
@@ -122,12 +122,20 @@ export const createProduct =
     }
   };
 
-export const editProduct = (id) => async (dispatch) => {
+export const editProduct = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: PRODUCT_EDIT_REQUEST,
     });
-    const { data } = await axios.get(`/api/products/${id}/admin`);
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.get(`/api/products/${id}/admin`, config);
     dispatch({
       type: PRODUCT_EDIT_SUCCESS,
       payload: data,

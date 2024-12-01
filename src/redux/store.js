@@ -14,6 +14,7 @@ import {
   productListReducer,
   productUpdateReducer,
 } from "./reducers/ProductReducers";
+import { cloudinaryUploadReducer } from "./reducers/CloudinaryReducers";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -26,6 +27,7 @@ const reducer = combineReducers({
   orderList: orderListReducer,
   orderDetails: orderDetailsReducer,
   orderDeliver: orderDeliveredReducer,
+  cloudinaryUpload: cloudinaryUploadReducer,
 });
 
 const userInfoFromLocalStorage = localStorage.getItem("userInfo")

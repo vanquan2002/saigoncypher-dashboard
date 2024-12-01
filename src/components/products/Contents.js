@@ -22,7 +22,7 @@ const Contents = () => {
       dispatch({ type: PRODUCT_DELETE_RESET });
       toggleIsDeleteModal(false);
       toggleIsSmallModal("Xóa sản phẩm thành công");
-      setTypeModal("delete_success");
+      setTypeModal("success");
     }
   }, [successDelete]);
 
@@ -31,7 +31,7 @@ const Contents = () => {
       dispatch({ type: PRODUCT_DELETE_RESET });
       toggleIsDeleteModal(false);
       toggleIsSmallModal(`Lỗi: ${errorDelete}`);
-      setTypeModal("delete_error");
+      setTypeModal("error");
     }
   }, [errorDelete]);
 
@@ -50,7 +50,7 @@ const Contents = () => {
       </div>
 
       <SmallModal
-        result={["delete_success", "delete_error"].includes(typeModal)}
+        result={["success", "error"].includes(typeModal)}
         type={typeModal}
       />
     </div>
