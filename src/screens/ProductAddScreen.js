@@ -1,16 +1,16 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
-import AddProductMain from "../components/products/AddProductMain";
+import Contents from "../components/productAddComponents/Contents";
 
-const AddProduct = () => {
+const ProductAddScreen = () => {
   return (
     <div className="flex">
       <Sidebar />
       <div className="w-5/6">
-        <AddProductMain />
+        <Contents />
       </div>
     </div>
   );
 };
 
-export default AddProduct;
+export default ProductAddScreen;

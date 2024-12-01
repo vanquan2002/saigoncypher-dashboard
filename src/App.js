@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
-import AddProduct from "./screens/AddProduct";
 import ProductEditScreen from "./screens/ProductEditScreen";
 import OrderScreen from "./screens/OrderScreen";
 import OrderDetailScreen from "./screens/OrderDetailScreen";
@@ -9,6 +8,7 @@ import UsersScreen from "./screens/UsersScreen";
 import LoginScreen from "./screens/LoginScreen";
 import NotFound from "./screens/NotFound";
 import PrivateRouter from "./PrivateRouter";
+import ProductAddScreen from "./screens/ProductAddScreen";
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
         />
         <Route
           path="/product/add"
-          element={<PrivateRouter comp={<AddProduct />} />}
+          element={<PrivateRouter comp={<ProductAddScreen />} />}
         />
         <Route
           path="/product/:id/edit"

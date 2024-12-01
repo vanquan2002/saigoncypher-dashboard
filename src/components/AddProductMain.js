@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { createProduct } from "./../../redux/actions/ProductActions";
-import { PRODUCT_CREATE_RESET } from "./../../redux/constants/ProductConstants";
-import Loading from "./../loadingError/Loading";
-import Message from "./../loadingError/Error";
-import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
+import { createProduct } from "../redux/actions/ProductActions";
+import { PRODUCT_CREATE_RESET } from "../redux/constants/ProductConstants";
+import Loading from "./loadingError/Loading";
+import Message from "./loadingError/Error";
 
 const AddProductMain = () => {
   const [name, setName] = useState("");

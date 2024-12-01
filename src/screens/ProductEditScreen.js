@@ -1,13 +1,13 @@
 import React from "react";
 import Header from "../components/headerComponents/Header";
 import Footer from "../components/footerComponents/Footer";
-import EditProductMain from "../components/products/EditProductMain";
+import Contents from "../components/productEditComponents/Contents";
 
 const ProductEditScreen = () => {
   return (
     <div>
       <Header />
-      <EditProductMain />
+      <Contents />
       <Footer />
     </div>
   );

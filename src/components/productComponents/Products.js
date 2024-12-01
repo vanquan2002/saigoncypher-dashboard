@@ -6,7 +6,7 @@ import DeleteProductModal from "../modals/DeleteProductModal";
 import { AppContext } from "../../AppContext";
 import Loading from "../loadingError/Loading";
 import Error from "../loadingError/Error";
-import { listProduct } from "./../../redux/actions/ProductActions";
+import { listProduct } from "../../redux/actions/ProductActions";
 
 const Products = ({ setTypeModal }) => {
   const dispatch = useDispatch();

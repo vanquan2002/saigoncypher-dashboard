@@ -12,7 +12,7 @@ import { AppContext } from "../../AppContext";
 import UpAvatarModal from "../modals/UpAvatarModal";
 import { CLOUDINARY_UPLOAD_RESET } from "../../redux/constants/CloudinaryConstants";
 
-const EditProductMain = () => {
+const Contents = () => {
   const { id } = useParams();
   const productEdit = useSelector((state) => state.productEdit);
   const { product, loading: loadingProduct, error: errorProduct } = productEdit;
@@ -211,36 +211,26 @@ const EditProductMain = () => {
 
             <fieldset className="border border-neutral-300 px-4 py-3">
               <legend className="text-sm ml-5">Tải ảnh thu nhỏ</legend>
-              <div className="w-1/2 lg:w-1/4 flex items-end gap-2">
-                {thumbImage ? (
-                  <img src={thumbImage} alt="" className="w-full" />
-                ) : (
-                  <div className="aspect-[2/3] w-full">
-                    <label
-                      htmlFor="file_input"
-                      title="Chọn ảnh đại diện"
-                      className="w-full h-full border border-dashed border-gray-300 flex items-center justify-center cursor-pointer"
-                    >
-                      <RiImageAddFill className="text-4xl md:text-5xl text-neutral-600" />
-                    </label>
-
-                    <input
-                      onChange={changeImgHandle}
-                      hidden
-                      type="file"
-                      id="file_input"
-                    />
-                  </div>
-                )}
-                {thumbImage && (
-                  <button
-                    type="button"
-                    onClick={() => setThumbImage("")}
-                    className="border border-gray-300 hover:bg-slate-100 p-1.5"
+              <div className="w-1/2 lg:w-1/4 flex items-end gap-3">
+                <img src={thumbImage} alt="" className="w-full" />
+                <div className="flex flex-col items-start gap-2">
+                  <label
+                    htmlFor="file_input"
+                    className="px-4 py-1.5 border border-gray-300 cursor-pointer text-sm text-nowrap hover:bg-neutral-100"
                   >
-                    <RiDeleteBin6Line className="text-red-500 text-xl md:text-2xl" />
-                  </button>
-                )}
+                    Thay đổi
+                  </label>
+                  <input
+                    onChange={changeImgHandle}
+                    hidden
+                    type="file"
+                    id="file_input"
+                  />
+
+                  <span className="text-xs text-nowrap">
+                    Yêu cầu ảnh tỷ lệ 2/3
+                  </span>
+                </div>
               </div>
               {errSelectImage && (
                 <p className="mt-1.5 text-sm text-red-500">{errSelectImage}</p>
@@ -382,4 +372,4 @@ const EditProductMain = () => {
   );
 };
 
-export default EditProductMain;
+export default Contents;

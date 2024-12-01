@@ -50,10 +50,10 @@ const UpAvatarModal = ({ image, imageUrl }) => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className=" bg-white border border-neutral-300 w-full md:w-2/3 lg:w-1/2 mx-3 md:mx-0 pt-3 pb-5 px-5"
+        className=" bg-white border border-neutral-300 w-full md:w-1/2 lg:w-1/4 mx-3 md:mx-0 pt-3 pb-5 px-5"
       >
         <div className="flex items-center justify-between">
-          <h4 className="lowercase text-lg font-medium">Chọn ảnh đại diện.</h4>
+          <h4 className="lowercase text-lg font-medium">Chọn ảnh tải lên.</h4>
           <button
             type="button"
             onClick={() => closeModalUpImgHandle()}
@@ -62,15 +62,11 @@ const UpAvatarModal = ({ image, imageUrl }) => {
             <MdClose className="text-2xl" />
           </button>
         </div>
-        <div className="mt-4 flex justify-center">
-          <img
-            src={image}
-            alt=""
-            className="h-72 w-72 object-cover rounded-full"
-          />
+        <div className="aspect-[2/3] flex justify-center mt-2">
+          <img src={image} alt="" className="object-contain" />
         </div>
         {error && <span className="text-sm text-red-500">{error}</span>}
-        <div className="mt-7 flex gap-4">
+        <div className="flex gap-4 mt-4">
           <button
             type="button"
             onClick={() => closeModalUpImgHandle()}
