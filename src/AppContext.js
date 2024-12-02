@@ -5,11 +5,13 @@ export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [isSmallModal, setIsSmallModal] = useState("");
-  const [isUpAvatarModal, setIsUpAvatarModal] = useState(false);
+  const [isUpImageThumbModal, setIsUpImageThumbModal] = useState(false);
+  const [isUpImageModal, setIsUpImageModal] = useState(false);
 
   const toggleIsDeleteModal = (bol) => setIsDeleteModal(bol);
   const toggleIsSmallModal = (text) => setIsSmallModal(text);
-  const toggleIsUpAvatarModal = (bol) => setIsUpAvatarModal(bol);
+  const toggleIsUpImageThumbModal = (bol) => setIsUpImageThumbModal(bol);
+  const toggleIsUpImageModal = (bol) => setIsUpImageModal(bol);
 
   useEffect(() => {
     if (isSmallModal) {
@@ -32,8 +34,10 @@ export const AppProvider = ({ children }) => {
         toggleIsDeleteModal,
         isSmallModal,
         toggleIsSmallModal,
-        isUpAvatarModal,
-        toggleIsUpAvatarModal,
+        isUpImageThumbModal,
+        toggleIsUpImageThumbModal,
+        isUpImageModal,
+        toggleIsUpImageModal,
       }}
     >
       {children}

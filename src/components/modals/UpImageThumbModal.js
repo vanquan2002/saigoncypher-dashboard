@@ -7,15 +7,16 @@ import debounce from "lodash.debounce";
 import { CLOUDINARY_UPLOAD_RESET } from "../../redux/constants/CloudinaryConstants";
 import { uploadImage } from "../../redux/actions/CloudinaryActions";
 
-const UpAvatarModal = ({ image, imageUrl }) => {
+const UpImageThumbModal = ({ image, imageUrl }) => {
   const dispatch = useDispatch();
-  const { isUpAvatarModal, toggleIsUpAvatarModal } = useContext(AppContext);
+  const { isUpImageThumbModal, toggleIsUpImageThumbModal } =
+    useContext(AppContext);
   const cloudinaryUpload = useSelector((state) => state.cloudinaryUpload);
   const { loading, error } = cloudinaryUpload;
 
   const closeModalUpImgHandle = () => {
     if (!loading) {
-      toggleIsUpAvatarModal(false);
+      toggleIsUpImageThumbModal(false);
     }
     if (error) {
       dispatch({
@@ -33,17 +34,17 @@ const UpAvatarModal = ({ image, imageUrl }) => {
   );
 
   useEffect(() => {
-    document.body.style.overflow = isUpAvatarModal ? "hidden" : "auto";
+    document.body.style.overflow = isUpImageThumbModal ? "hidden" : "auto";
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [isUpAvatarModal]);
+  }, [isUpImageThumbModal]);
 
   return (
     <div
       onClick={() => closeModalUpImgHandle()}
       className={`z-20 ${
-        isUpAvatarModal
+        isUpImageThumbModal
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none"
       } duration-300 bg-black bg-opacity-50 fixed top-0 left-0 h-screen w-screen flex justify-center items-center`}
@@ -53,7 +54,7 @@ const UpAvatarModal = ({ image, imageUrl }) => {
         className=" bg-white border border-neutral-300 w-full md:w-1/2 lg:w-1/4 mx-3 md:mx-0 pt-3 pb-5 px-5"
       >
         <div className="flex items-center justify-between">
-          <h4 className="lowercase text-lg font-medium">Chọn ảnh tải lên.</h4>
+          <h4 className="text-lg font-medium">Chọn ảnh tải lên.</h4>
           <button
             type="button"
             onClick={() => closeModalUpImgHandle()}
@@ -91,4 +92,4 @@ const UpAvatarModal = ({ image, imageUrl }) => {
   );
 };
 
-export default UpAvatarModal;
+export default UpImageThumbModal;
