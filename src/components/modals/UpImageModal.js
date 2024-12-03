@@ -55,7 +55,7 @@ const UpImageModal = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className=" bg-white border border-neutral-300 w-full md:w-1/2 lg:w-1/3 mx-3 md:mx-0 pt-3 pb-5 px-5"
+        className=" bg-white border border-neutral-300 w-full md:w-2/3 lg:w-2/5 mx-3 md:mx-0 pt-3 pb-5 px-5"
       >
         <div className="flex items-center justify-between">
           <h4 className="text-lg font-medium">Chọn ảnh tải lên.</h4>
@@ -68,19 +68,18 @@ const UpImageModal = ({
           </button>
         </div>
 
-        <div className="w-full flex gap-3">
-          <div className="aspect-[2/3] overflow-hidden">
-            <img src={image} alt="" className="object-contain" />
+        <div className="mt-4 w-full flex gap-4">
+          <div className="w-1/2 border border-dashed border-neutral-300">
+            <img src={image} alt="" className="aspect-[2/3] object-contain" />
           </div>
 
-          <fieldset className="border border-neutral-300 px-3 py-2">
+          <fieldset className="w-1/2 border border-neutral-300 px-3 py-2">
             <legend className="text-[13px]">Nhập mô tả ngắn</legend>
             <textarea
-              className="w-full resize-none outline-none text-sm"
+              className="w-full h-full resize-none outline-none text-sm"
               placeholder="Ảnh của áo thun..."
               value={descriptionImage}
               onChange={(e) => setDescriptionImage(e.target.value)}
-              rows={8}
               maxLength={100}
             ></textarea>
           </fieldset>

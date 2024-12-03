@@ -9,7 +9,7 @@ import { RiAddLine } from "react-icons/ri";
 import { AppContext } from "../../AppContext";
 import UpImageThumbModal from "../modals/UpImageThumbModal";
 import { AiOutlineCloudUpload } from "react-icons/ai";
-
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { CLOUDINARY_UPLOAD_RESET } from "../../redux/constants/CloudinaryConstants";
 import UpImageModal from "../modals/UpImageModal";
 
@@ -242,12 +242,19 @@ const Contents = () => {
 
             <fieldset className="border-t md:border border-neutral-300 md:px-4 py-3">
               <legend className="text-sm ml-5">Tải ảnh thu nhỏ</legend>
-              <div className="w-1/2 lg:w-1/4 flex items-end gap-3">
-                <img src={thumbImage} alt="" className="w-full" />
+              <div className="flex items-end gap-3">
+                <div className="w-1/2 md:w-1/3 lg:w-1/5 flex justify-center items-center border border-dashed border-neutral-300">
+                  <img
+                    src={thumbImage}
+                    alt=""
+                    className="w-full aspect-[2/3] object-contain"
+                  />
+                </div>
+
                 <div className="flex flex-col items-start gap-2">
                   <label
                     htmlFor="image_thumb_input"
-                    className="px-4 py-1.5 border border-gray-300 cursor-pointer text-sm text-nowrap hover:bg-neutral-100"
+                    className="px-3 py-1 border border-gray-300 cursor-pointer text-sm text-nowrap hover:bg-neutral-100"
                   >
                     Thay đổi ảnh
                   </label>
@@ -257,7 +264,6 @@ const Contents = () => {
                     type="file"
                     id="image_thumb_input"
                   />
-
                   <span className="text-xs text-nowrap">
                     Yêu cầu ảnh tỷ lệ 2/3
                   </span>
@@ -275,7 +281,7 @@ const Contents = () => {
                   htmlFor="image_input"
                   className="text-sm cursor-pointer bg-black text-white px-3 py-1.5 hover:opacity-80 flex items-center"
                 >
-                  Tải ảnh
+                  Tải ảnh mới
                   <AiOutlineCloudUpload className="ml-1.5 text-lg" />
                 </label>
                 <input
@@ -290,7 +296,7 @@ const Contents = () => {
               </div>
 
               {images.length > 0 && (
-                <table className="w-full mt-4">
+                <table className="w-full h-full mt-4">
                   <thead>
                     <tr>
                       <td className="text-center text-sm p-2 border border-gray-300">
@@ -303,7 +309,7 @@ const Contents = () => {
                         Mô tả ngắn
                       </td>
                       <td className="text-center text-sm p-2 border border-gray-300">
-                        Hành động
+                        Xóa
                       </td>
                     </tr>
                   </thead>
@@ -313,16 +319,16 @@ const Contents = () => {
                         <td className="text-center border-r border-gray-300">
                           {i + 1}
                         </td>
-                        <td className="w-1/4 md:w-1/6 lg:w-[10%] p-0 border-r border-gray-300">
+                        <td className="w-1/3 md:w-[18%] lg:w-[12%] p-0 border-r border-gray-300">
                           <img
                             src={item.image}
                             alt={`Ảnh của ${item.description}`}
-                            className="w-full object-cover"
+                            className="aspect-[2/3] object-contain"
                           />
                         </td>
-                        <td className="p-2 border-r border-gray-300">
+                        <td className="border-r border-gray-300 w-full p-3">
                           <textarea
-                            className="resize-none text-[15px] w-full outline-none px-2 py-1 bg-neutral-100"
+                            className="w-full h-full resize-none text-[15px] outline-none"
                             placeholder="Được làm từ chất liệu..."
                             value={item.description}
                             onChange={(e) =>
@@ -332,7 +338,6 @@ const Contents = () => {
                                 e.target.value
                               )
                             }
-                            rows={4}
                             maxLength={100}
                           ></textarea>
                         </td>
@@ -340,9 +345,8 @@ const Contents = () => {
                           <button
                             type="button"
                             onClick={() => removeImageHandle(i)}
-                            className="text-red-500 text-sm hover:underline"
                           >
-                            Xóa
+                            <RiDeleteBin6Line className="text-red-500" />
                           </button>
                         </td>
                       </tr>
@@ -376,7 +380,7 @@ const Contents = () => {
                         Số lượng
                       </td>
                       <td className="text-center text-sm p-2 border border-gray-300">
-                        Hành động
+                        Xóa
                       </td>
                     </tr>
                   </thead>
@@ -418,9 +422,8 @@ const Contents = () => {
                           <button
                             type="button"
                             onClick={() => removeSizeHandle(i)}
-                            className="text-red-500 text-sm hover:underline"
                           >
-                            Xóa
+                            <RiDeleteBin6Line className="text-red-500" />
                           </button>
                         </td>
                       </tr>
@@ -472,6 +475,15 @@ const Contents = () => {
                 </div>
               </div>
             </fieldset>
+
+            <div className="mt-5 flex justify-end">
+              <button
+                type="submit"
+                className="text-sm bg-black text-white px-3 py-1.5 hover:opacity-80"
+              >
+                Hoàn tất cập nhật
+              </button>
+            </div>
           </form>
         )}
       </div>

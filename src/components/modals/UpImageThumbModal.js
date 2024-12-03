@@ -63,8 +63,12 @@ const UpImageThumbModal = ({ image, imageUrl }) => {
             <MdClose className="text-2xl" />
           </button>
         </div>
-        <div className="aspect-[2/3] flex justify-center mt-2">
-          <img src={image} alt="" className="object-contain" />
+        <div className="flex justify-center mt-2 border border-dashed border-neutral-300">
+          <img
+            src={image}
+            alt=""
+            className="w-full aspect-[2/3] object-contain"
+          />
         </div>
         {error && <span className="text-sm text-red-500">{error}</span>}
         <div className="flex gap-4 mt-4">
