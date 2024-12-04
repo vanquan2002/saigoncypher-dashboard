@@ -7,11 +7,13 @@ export const AppProvider = ({ children }) => {
   const [isSmallModal, setIsSmallModal] = useState("");
   const [isUpImageThumbModal, setIsUpImageThumbModal] = useState(false);
   const [isUpImageModal, setIsUpImageModal] = useState(false);
+  const [isPreviewModal, setIsPreviewModal] = useState(false);
 
   const toggleIsDeleteModal = (bol) => setIsDeleteModal(bol);
   const toggleIsSmallModal = (text) => setIsSmallModal(text);
   const toggleIsUpImageThumbModal = (bol) => setIsUpImageThumbModal(bol);
   const toggleIsUpImageModal = (bol) => setIsUpImageModal(bol);
+  const toggleIsPreviewModal = (bol) => setIsPreviewModal(bol);
 
   useEffect(() => {
     if (isSmallModal) {
@@ -38,6 +40,8 @@ export const AppProvider = ({ children }) => {
         toggleIsUpImageThumbModal,
         isUpImageModal,
         toggleIsUpImageModal,
+        isPreviewModal,
+        toggleIsPreviewModal,
       }}
     >
       {children}

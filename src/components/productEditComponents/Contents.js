@@ -14,7 +14,7 @@ import { CLOUDINARY_UPLOAD_RESET } from "../../redux/constants/CloudinaryConstan
 import UpImageModal from "../modals/UpImageModal";
 import { PRODUCT_UPDATE_RESET } from "../../redux/constants/ProductConstants";
 import SmallModal from "../modals/SmallModal";
-import { BiSolidEditAlt } from "react-icons/bi";
+import PreviewImageModal from "../modals/PreviewImageModal";
 
 const Contents = () => {
   const { id } = useParams();
@@ -23,7 +23,9 @@ const Contents = () => {
   const {
     toggleIsUpImageThumbModal,
     toggleIsUpImageModal,
+    isSmallModal,
     toggleIsSmallModal,
+    toggleIsPreviewModal,
   } = useContext(AppContext);
   const cloudinaryUpload = useSelector((state) => state.cloudinaryUpload);
   const { linkImage } = cloudinaryUpload;
@@ -52,6 +54,7 @@ const Contents = () => {
   } = productUpdate;
   const [typeModal, setTypeModal] = useState("");
   const [indexImageChange, setIndexImageChange] = useState(null);
+  const [linkImagePreview, setLinkImagePreview] = useState(null);
 
   const submitHandle = (e) => {
     e.preventDefault();
@@ -100,8 +103,9 @@ const Contents = () => {
     updatedList[index][field] = value;
     setImages(updatedList);
   };
-
   const changeImgHandle = (e) => {
+    if (isSmallModal) toggleIsSmallModal("");
+    if (typeModal) setTypeModal("");
     const indexImage = e.target.dataset.index;
     const file = e.target.files[0];
     const inputId = e.target.id;
@@ -109,15 +113,16 @@ const Contents = () => {
     if (!file) return;
     if (!file.type.startsWith("image/")) {
       setErrSelectImage("Vui lòng chọn tệp hình ảnh hợp lệ!");
+      e.target.value = null;
       return;
     }
     if (file.size > maxSize) {
       setErrSelectImage("Kích thước tệp quá lớn (tối đa 10MB).");
+      e.target.value = null;
       return;
     }
     setImage(URL.createObjectURL(file));
     setImageUrl(file);
-    e.target.value = null;
     if (inputId === "image_thumb_input") {
       setTypeUpload(1);
     } else if (inputId === "image_input") {
@@ -128,15 +133,18 @@ const Contents = () => {
         setIndexImageChange(indexImage);
       }
     }
+    e.target.value = null;
+  };
+  const openPreviewImageHandle = (linkImage) => {
+    setLinkImagePreview(linkImage);
+    toggleIsPreviewModal(true);
   };
 
   useEffect(() => {
     if (image) {
       if (typeUpload === 1 || typeUpload === 3) toggleIsUpImageThumbModal(true);
       if (typeUpload === 2) toggleIsUpImageModal(true);
-      if (errSelectImage) {
-        setErrSelectImage("");
-      }
+      if (errSelectImage) setErrSelectImage(null);
     }
   }, [image]);
   useEffect(() => {
@@ -207,6 +215,13 @@ const Contents = () => {
       setTypeModal("error");
     }
   }, [errorUpdate]);
+  useEffect(() => {
+    if (errSelectImage) {
+      toggleIsSmallModal(errSelectImage);
+      setTypeModal("error");
+      setErrSelectImage(null);
+    }
+  }, [errSelectImage]);
 
   return (
     <div className="px-3 mt-5 mb-28">
@@ -290,7 +305,8 @@ const Contents = () => {
                   <img
                     src={thumbImage}
                     alt=""
-                    className="w-full aspect-[2/3] object-contain"
+                    className="w-full aspect-[2/3] object-contain cursor-pointer"
+                    onClick={() => openPreviewImageHandle(thumbImage)}
                   />
                 </div>
 
@@ -312,9 +328,6 @@ const Contents = () => {
                   </span>
                 </div>
               </div>
-              {errSelectImage && (
-                <p className="mt-1.5 text-sm text-red-500">{errSelectImage}</p>
-              )}
             </fieldset>
 
             <fieldset className="border-t md:border border-neutral-300 md:px-4 py-3">
@@ -366,7 +379,8 @@ const Contents = () => {
                           <img
                             src={item.image}
                             alt={`Ảnh của ${item.description}`}
-                            className="aspect-[2/3] object-contain"
+                            className="aspect-[2/3] object-contain cursor-pointer"
+                            onClick={() => openPreviewImageHandle(item.image)}
                           />
                           <div className="absolute bottom-0 left-0 backdrop-blur-sm bg-black/30 flex justify-center w-full">
                             <label
@@ -552,6 +566,7 @@ const Contents = () => {
         result={["success", "error"].includes(typeModal)}
         type={typeModal}
       />
+      <PreviewImageModal linkImagePreview={linkImagePreview} />
       <UpImageThumbModal image={image} imageUrl={imageUrl} />
       <UpImageModal
         image={image}

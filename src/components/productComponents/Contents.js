@@ -40,7 +40,7 @@ const Contents = () => {
       <button
         type="button"
         className="text-sm border border-neutral-300 px-3 py-1.5 hover:bg-neutral-100 flex items-center"
-        onClick={() => navigate("/addproduct")}
+        onClick={() => navigate("/product/add")}
       >
         Tạo sản phẩm mới <IoAddSharp className="ml-1" />
       </button>
