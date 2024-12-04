@@ -100,7 +100,7 @@ const UpImageModal = ({
             type="button"
             onClick={() => debouncedUpdateProfile()}
             className={`lowercase w-full text-sm bg-black text-white py-2 hover:opacity-80 ${
-              loading && "opacity-30 pointer-events-none"
+              loading && "bg-opacity-30 pointer-events-none"
             }`}
           >
             {loading ? "Đang tải lên..." : "Tải lên."}

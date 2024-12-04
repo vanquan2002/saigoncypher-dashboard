@@ -169,13 +169,12 @@ export const updateProduct = (product) => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.put(
-      `/api/products/${product._id}`,
+      `/api/products/${product._id}/admin`,
       product,
       config
     );
     dispatch({
       type: PRODUCT_UPDATE_SUCCESS,
-      payload: data,
     });
     dispatch({
       type: PRODUCT_EDIT_SUCCESS,

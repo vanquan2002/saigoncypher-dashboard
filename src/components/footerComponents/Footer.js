@@ -35,7 +35,7 @@ const Footer = () => {
   const [activePage, setActivePage] = useState(null);
 
   return (
-    <div className="fixed left-0 bottom-0 w-full backdrop-blur-sm bg-white/30">
+    <div className="z-10 fixed left-0 bottom-0 w-full backdrop-blur-sm bg-white/30">
       <ul className="flex border-t border-neutral-300">
         {pagesUrl.map((item, i) => (
           <li

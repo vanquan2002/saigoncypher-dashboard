@@ -7,18 +7,22 @@ const SmallModal = ({ result, type }) => {
 
   return (
     <div
-      className={`z-20 fixed bottom-16 md:bottom-12 left-3 ${
+      className={`z-20 fixed bottom-16 md:bottom-12 left-0 flex justify-center w-full ${
         result && isSmallModal
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none"
       }`}
     >
       <div
-        className={`flex items-center gap-3 px-3 py-2 ${
-          type === "error" ? "bg-red-500" : "bg-black"
+        className={`w-[calc(100%-24px)] flex items-center justify-between gap-3 py-2 px-3 ${
+          type === "error" ? "bg-red-500" : "bg-green-600"
         }`}
       >
-        <p className="text-white leading-3 text-sm lowercase">{isSmallModal}</p>
+        <div className="overflow-hidden">
+          <p className="text-white leading-4 text-sm lowercase">
+            {isSmallModal}
+          </p>
+        </div>
         <button
           onClick={() => toggleIsSmallModal("")}
           type="button"

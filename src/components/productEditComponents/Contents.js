@@ -12,16 +12,21 @@ import { AiOutlineCloudUpload } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { CLOUDINARY_UPLOAD_RESET } from "../../redux/constants/CloudinaryConstants";
 import UpImageModal from "../modals/UpImageModal";
+import { PRODUCT_UPDATE_RESET } from "../../redux/constants/ProductConstants";
+import SmallModal from "../modals/SmallModal";
+import { BiSolidEditAlt } from "react-icons/bi";
 
 const Contents = () => {
   const { id } = useParams();
   const productEdit = useSelector((state) => state.productEdit);
   const { product, loading: loadingProduct, error: errorProduct } = productEdit;
-  const { toggleIsUpImageThumbModal, toggleIsUpImageModal } =
-    useContext(AppContext);
+  const {
+    toggleIsUpImageThumbModal,
+    toggleIsUpImageModal,
+    toggleIsSmallModal,
+  } = useContext(AppContext);
   const cloudinaryUpload = useSelector((state) => state.cloudinaryUpload);
   const { linkImage } = cloudinaryUpload;
-
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [returnPolicy, setReturnPolicy] = useState("");
@@ -32,13 +37,11 @@ const Contents = () => {
   const [sizes, setSizes] = useState([]);
   const [color, setColor] = useState("");
   const [model, setModel] = useState({ size: "", height: "" });
-
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [errSelectImage, setErrSelectImage] = useState(null);
   const [typeUpload, setTypeUpload] = useState(null);
   const [descriptionImage, setDescriptionImage] = useState("");
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const productUpdate = useSelector((state) => state.productUpdate);
@@ -47,16 +50,29 @@ const Contents = () => {
     success: successUpdate,
     error: errorUpdate,
   } = productUpdate;
+  const [typeModal, setTypeModal] = useState("");
+  const [indexImageChange, setIndexImageChange] = useState(null);
 
   const submitHandle = (e) => {
     e.preventDefault();
     dispatch(
       updateProduct({
         _id: id,
+        name,
+        description,
+        returnPolicy,
+        storageInstructions,
+        price,
+        thumbImage,
+        images,
+        sizes,
+        color,
+        model,
       })
     );
+    toggleIsSmallModal("");
+    setTypeModal("");
   };
-
   const addSizeHandle = () => {
     setSizes([
       ...sizes,
@@ -66,23 +82,19 @@ const Contents = () => {
       },
     ]);
   };
-
   const sizeChangeHandle = (index, field, value) => {
     const updatedList = [...sizes];
     updatedList[index][field] = value;
     setSizes(updatedList);
   };
-
   const removeSizeHandle = (index) => {
     const updatedList = sizes.filter((_, i) => i !== index);
     setSizes(updatedList);
   };
-
   const removeImageHandle = (index) => {
     const updatedList = images.filter((_, i) => i !== index);
     setImages(updatedList);
   };
-
   const imageChangeHandle = (index, field, value) => {
     const updatedList = [...images];
     updatedList[index][field] = value;
@@ -90,13 +102,10 @@ const Contents = () => {
   };
 
   const changeImgHandle = (e) => {
+    const indexImage = e.target.dataset.index;
     const file = e.target.files[0];
     const inputId = e.target.id;
     const maxSize = 10485760;
-    const typeMap = {
-      image_thumb_input: 1,
-      image_input: 2,
-    };
     if (!file) return;
     if (!file.type.startsWith("image/")) {
       setErrSelectImage("Vui lòng chọn tệp hình ảnh hợp lệ!");
@@ -109,19 +118,27 @@ const Contents = () => {
     setImage(URL.createObjectURL(file));
     setImageUrl(file);
     e.target.value = null;
-    if (typeMap[inputId]) setTypeUpload(typeMap[inputId]);
+    if (inputId === "image_thumb_input") {
+      setTypeUpload(1);
+    } else if (inputId === "image_input") {
+      setTypeUpload(2);
+    } else if (inputId.startsWith("image_change")) {
+      setTypeUpload(3);
+      if (indexImage) {
+        setIndexImageChange(indexImage);
+      }
+    }
   };
 
   useEffect(() => {
     if (image) {
-      if (typeUpload === 1) toggleIsUpImageThumbModal(true);
+      if (typeUpload === 1 || typeUpload === 3) toggleIsUpImageThumbModal(true);
       if (typeUpload === 2) toggleIsUpImageModal(true);
       if (errSelectImage) {
         setErrSelectImage("");
       }
     }
-  }, [image, typeUpload]);
-
+  }, [image]);
   useEffect(() => {
     if (linkImage) {
       const commonActions = () => {
@@ -137,15 +154,28 @@ const Contents = () => {
       }
       if (typeUpload === 2) {
         toggleIsUpImageModal(false);
+        setDescriptionImage("");
         setImages([
           ...images,
           { image: linkImage, description: descriptionImage },
         ]);
         commonActions();
       }
+      if (typeUpload === 3) {
+        toggleIsUpImageThumbModal(false);
+        setImages((prevImages) => {
+          const updatedImages = [...prevImages];
+          updatedImages[indexImageChange] = {
+            ...updatedImages[indexImageChange],
+            image: linkImage,
+          };
+          return updatedImages;
+        });
+        commonActions();
+        setIndexImageChange(null);
+      }
     }
-  }, [linkImage, typeUpload]);
-
+  }, [linkImage]);
   useEffect(() => {
     if (product && Object.keys(product).length > 0) {
       setName(product.name);
@@ -160,10 +190,23 @@ const Contents = () => {
       setModel({ size: product.model.size, height: product.model.height });
     }
   }, [product]);
-
   useEffect(() => {
     dispatch(editProduct(id));
   }, [id]);
+  useEffect(() => {
+    if (successUpdate) {
+      dispatch({ type: PRODUCT_UPDATE_RESET });
+      toggleIsSmallModal("Cập nhật sản phẩm thành công");
+      setTypeModal("success");
+    }
+  }, [successUpdate]);
+  useEffect(() => {
+    if (errorUpdate) {
+      dispatch({ type: PRODUCT_UPDATE_RESET });
+      toggleIsSmallModal(`Lỗi: ${errorUpdate}`);
+      setTypeModal("error");
+    }
+  }, [errorUpdate]);
 
   return (
     <div className="px-3 mt-5 mb-28">
@@ -319,12 +362,27 @@ const Contents = () => {
                         <td className="text-center border-r border-gray-300">
                           {i + 1}
                         </td>
-                        <td className="w-1/3 md:w-[18%] lg:w-[12%] p-0 border-r border-gray-300">
+                        <td className="w-1/3 md:w-[18%] lg:w-[12%] p-0 border-r border-gray-300 relative">
                           <img
                             src={item.image}
                             alt={`Ảnh của ${item.description}`}
                             className="aspect-[2/3] object-contain"
                           />
+                          <div className="absolute bottom-0 left-0 backdrop-blur-sm bg-black/30 flex justify-center w-full">
+                            <label
+                              htmlFor={`image_change_${i}`}
+                              className="text-sm text-center cursor-pointer text-white py-1 w-full"
+                            >
+                              Thay đổi
+                            </label>
+                            <input
+                              onChange={changeImgHandle}
+                              hidden
+                              type="file"
+                              id={`image_change_${i}`}
+                              data-index={i}
+                            />
+                          </div>
                         </td>
                         <td className="border-r border-gray-300 w-full p-3">
                           <textarea
@@ -476,18 +534,24 @@ const Contents = () => {
               </div>
             </fieldset>
 
-            <div className="mt-5 flex justify-end">
+            <div className="mt-2 flex justify-end">
               <button
                 type="submit"
-                className="text-sm bg-black text-white px-3 py-1.5 hover:opacity-80"
+                className={`text-sm bg-black text-white px-3 py-1.5 hover:opacity-80 ${
+                  LoadingUpdate && "bg-opacity-30 pointer-events-none"
+                }`}
               >
-                Hoàn tất cập nhật
+                {LoadingUpdate ? "Đang cập nhật..." : "Cập nhật"}
               </button>
             </div>
           </form>
         )}
       </div>
 
+      <SmallModal
+        result={["success", "error"].includes(typeModal)}
+        type={typeModal}
+      />
       <UpImageThumbModal image={image} imageUrl={imageUrl} />
       <UpImageModal
         image={image}

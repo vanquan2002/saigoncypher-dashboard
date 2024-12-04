@@ -13,8 +13,8 @@ const Products = ({ setTypeModal }) => {
   const productList = useSelector((state) => state.productList);
   const { products, loading, error } = productList;
   const { toggleIsDeleteModal } = useContext(AppContext);
-
   const [numberOpenDeleteModal, setNumberOpenDeleteModal] = useState(null);
+
   const openDeleteModalHandle = (id) => {
     toggleIsDeleteModal(true);
     setNumberOpenDeleteModal(id);
