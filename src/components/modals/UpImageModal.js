@@ -29,7 +29,7 @@ const UpImageModal = ({
     }
   };
 
-  const debouncedUpdateProfile = useMemo(
+  const debouncedUpdateImage = useMemo(
     () =>
       debounce(() => {
         dispatch(uploadImage(imageUrl));
@@ -58,7 +58,7 @@ const UpImageModal = ({
         className=" bg-white border border-neutral-300 w-full md:w-2/3 lg:w-2/5 mx-3 md:mx-0 pt-3 pb-5 px-5"
       >
         <div className="flex items-center justify-between">
-          <h4 className="text-lg font-medium">Chọn ảnh tải lên.</h4>
+          <h4 className="text-lg font-medium">Chọn ảnh tải lên</h4>
           <button
             type="button"
             onClick={() => closeModalUpImgHandle()}
@@ -94,16 +94,16 @@ const UpImageModal = ({
               loading && "opacity-30 pointer-events-none"
             }`}
           >
-            Hủy bỏ.
+            Hủy bỏ
           </button>
           <button
             type="button"
-            onClick={() => debouncedUpdateProfile()}
+            onClick={() => debouncedUpdateImage()}
             className={`lowercase w-full text-sm bg-black text-white py-2 hover:opacity-80 ${
               loading && "bg-opacity-30 pointer-events-none"
             }`}
           >
-            {loading ? "Đang tải lên..." : "Tải lên."}
+            {loading ? "Đang tải lên..." : "Tải lên"}
           </button>
         </div>
       </div>

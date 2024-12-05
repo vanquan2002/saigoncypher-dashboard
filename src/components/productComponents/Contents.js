@@ -5,7 +5,10 @@ import Products from "./Products";
 import { AppContext } from "../../AppContext";
 import { useDispatch, useSelector } from "react-redux";
 import { listProduct } from "../../redux/actions/ProductActions";
-import { PRODUCT_DELETE_RESET } from "../../redux/constants/ProductConstants";
+import {
+  PRODUCT_CREATE_RESET,
+  PRODUCT_DELETE_RESET,
+} from "../../redux/constants/ProductConstants";
 import SmallModal from "../modals/SmallModal";
 
 const Contents = () => {
@@ -13,6 +16,8 @@ const Contents = () => {
   const dispatch = useDispatch();
   const productDelete = useSelector((state) => state.productDelete);
   const { success: successDelete, error: errorDelete } = productDelete;
+  const productCreate = useSelector((state) => state.productCreate);
+  const { success: successCreate } = productCreate;
   const [typeModal, setTypeModal] = useState("");
   const { toggleIsDeleteModal, toggleIsSmallModal } = useContext(AppContext);
 
@@ -35,11 +40,19 @@ const Contents = () => {
     }
   }, [errorDelete]);
 
+  useEffect(() => {
+    if (successCreate) {
+      dispatch({ type: PRODUCT_CREATE_RESET });
+      toggleIsSmallModal("Thêm sản phẩm thành công");
+      setTypeModal("success");
+    }
+  }, [successCreate]);
+
   return (
     <div className="px-3 mt-5 mb-28">
       <button
         type="button"
-        className="text-sm border border-neutral-300 px-3 py-1.5 hover:bg-neutral-100 flex items-center"
+        className="text-sm bg-black text-white px-3 py-1.5 hover:bg-opacity-80 flex items-center"
         onClick={() => navigate("/product/add")}
       >
         Tạo sản phẩm mới <IoAddSharp className="ml-1" />

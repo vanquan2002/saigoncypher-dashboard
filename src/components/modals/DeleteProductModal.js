@@ -46,14 +46,14 @@ const DeleteProductModal = ({ isOpen, product, setTypeModal }) => {
           <button
             type="button"
             onClick={() => toggleIsDeleteModal(false)}
-            className="text-sm border border-neutral-300 px-6 py-1.5 hover:bg-neutral-100"
+            className="text-sm border border-neutral-300 px-6 py-1 hover:bg-neutral-100"
           >
             Hủy
           </button>
           <button
             type="button"
             onClick={() => deleteProductHandle(product._id)}
-            className="text-sm border border-neutral-300 px-6 py-1.5 hover:bg-neutral-100 text-red-500"
+            className="text-sm border border-neutral-300 px-6 py-1 hover:bg-neutral-100 text-red-500"
           >
             Xóa
           </button>

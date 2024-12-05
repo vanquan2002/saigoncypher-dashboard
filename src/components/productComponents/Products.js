@@ -31,27 +31,33 @@ const Products = ({ setTypeModal }) => {
       ) : error ? (
         <Error error={error} />
       ) : (
-        <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+        <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-x-3 gap-y-5">
           {products.map((product, i) => (
             <li key={i} className="col-span-1">
-              <img src={product.thumbImage} alt={product.name} />
-              <h2 className="mt-1 text-sm leading-4 line-clamp-2">
+              <div className="border border-dashed border-neutral-300">
+                <img
+                  src={product.thumbImage}
+                  alt={product.name}
+                  className="w-full aspect-[2/3] object-contain"
+                />
+              </div>
+              <h2 className="mt-2 text-sm leading-4 line-clamp-2">
                 {product.name}
               </h2>
               <span className="text-sm font-semibold">
                 {formatCurrency(product.price)}
               </span>
-              <div className="mt-1 flex justify-center gap-2">
+              <div className="mt-1 w-full flex gap-2">
                 <Link
                   to={`/product/${product._id}/edit`}
-                  className="text-sm border border-neutral-300 px-4 py-0.5 hover:bg-neutral-100"
+                  className="w-full text-sm border border-neutral-300 px-4 py-1 hover:bg-neutral-100 text-center"
                 >
                   Sửa
                 </Link>
                 <button
                   type="button"
                   onClick={() => openDeleteModalHandle(i)}
-                  className="text-sm border border-neutral-300 px-4 py-0.5 hover:bg-neutral-100"
+                  className="w-full text-sm border border-neutral-300 px-4 py-1 hover:bg-neutral-100"
                 >
                   Xóa
                 </button>

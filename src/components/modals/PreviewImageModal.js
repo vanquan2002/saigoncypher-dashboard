@@ -23,7 +23,7 @@ const PreviewImageModal = ({ linkImagePreview }) => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white border border-neutral-300 w-full md:w-2/3 lg:w-1/3 mx-3 md:mx-0 relative"
+        className="bg-white border border-neutral-300 md:h-full relative"
       >
         <div className="absolute top-0 left-0 w-full flex items-center justify-between px-2.5 py-1.5 backdrop-blur-sm bg-white/30">
           <h4 className="text-sm font-medium">Ảnh phóng to</h4>
@@ -34,7 +34,7 @@ const PreviewImageModal = ({ linkImagePreview }) => {
         <img
           src={linkImagePreview}
           alt=""
-          className="w-full aspect-[2/3] object-contain"
+          className="h-full aspect-[2/3] object-contain"
         />
       </div>
     </div>

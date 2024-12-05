@@ -14,7 +14,7 @@ const SmallModal = ({ result, type }) => {
       }`}
     >
       <div
-        className={`w-[calc(100%-24px)] flex items-center justify-between gap-3 py-2 px-3 ${
+        className={`w-[calc(100%-24px)] lg:w-[calc(100%-40px)] flex items-start justify-between gap-3 py-2 px-3 lg:px-5 ${
           type === "error" ? "bg-red-500" : "bg-green-600"
         }`}
       >
